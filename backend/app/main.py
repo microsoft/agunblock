@@ -238,6 +238,9 @@ async def get_repository_info(
             raise HTTPException(status_code=404, detail="Repository not found")
         
         return RepositoryInfoResponse(**repo_data)
+    except HTTPException:
+        # Re-raise HTTPException without modification
+        raise
     except RuntimeError as e:
         error_msg = f"Error fetching repository info: {str(e)}"
         print(error_msg)
